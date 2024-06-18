@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import './App.css'
-import ShoppingList from './components/ShoppingList/ShoppingList'
+import ShoppingList from './pages/ShoppingList/ShoppingList.jsx'
+import EditList from './pages/EditList/EditList.jsx'
 import { fetchLists } from './features/list/listsSlice.js';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<ShoppingList />} />
+        <Route path='/:listId' element={<EditList />} />
       </Routes>
     </BrowserRouter>
   )

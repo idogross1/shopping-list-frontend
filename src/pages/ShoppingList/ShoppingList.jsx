@@ -1,7 +1,8 @@
 import classes from './ShoppingList.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { addItem, removeItem, getLists, fetchLists } from '../../features/list/listsSlice.js';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Lists } from '../../components/lists/Lists';
+import { AddNewList } from '../../components/addNewList/AddNewList';
+
 const ShoppingList = () => {
 
     const lists = useSelector(state => state.lists);
@@ -9,7 +10,8 @@ const ShoppingList = () => {
 
     return (
         <>
-            <h1 className={classes.h1}>{JSON.stringify(lists)}</h1>
+            <AddNewList />
+            <Lists lists={lists} />
         </>
     );
 }
