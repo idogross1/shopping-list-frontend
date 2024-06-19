@@ -13,7 +13,7 @@ export const addNewList = createAsyncThunk('lists/addNewList', async (newList) =
     return response.data;
 });
 
-const itemsSlice = createSlice({
+const listsSlice = createSlice({
     name: 'lists',
     initialState: {
         data: [],
@@ -61,5 +61,5 @@ const itemsSlice = createSlice({
             });
     },
 });
-export const { addItem, removeItem, getLists } = itemsSlice.actions;
-export default itemsSlice.reducer;
+export const { addItem, removeItem, getLists } = listsSlice.actions;
+export default listsSlice.reducer;
