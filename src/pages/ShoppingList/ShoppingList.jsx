@@ -1,6 +1,6 @@
-import classes from './ShoppingList.module.css';
+// import classes from './ShoppingList.module.css';
 import { useSelector } from 'react-redux';
-import { Lists } from '../../components/lists/Lists';
+import Lists from '../../components/lists/Lists';
 import { AddNewList } from '../../components/addNewList/AddNewList';
 
 const ShoppingList = () => {
