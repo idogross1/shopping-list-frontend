@@ -16,7 +16,7 @@ export const addNewList = createAsyncThunk('lists/addNewList', async (newList) =
 const itemsSlice = createSlice({
     name: 'items',
     initialState: {
-        data: [{ name: 'milk' }, { name: 'bread' }],
+        data: [{ _id: 'sdkcmsdc', name: 'milk' }, { _id: 'cawehjbcj', name: 'bread' }],
         status: 'idle',
         error: null,
     },

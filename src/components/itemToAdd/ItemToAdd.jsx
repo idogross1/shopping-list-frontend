@@ -1,12 +1,17 @@
-import PropTypes from 'prop-types';
-const ItemToAdd = ({ item }) => {
-    return <li>
-        <pre>{JSON.stringify(item, null, 2)}</pre>
+import propTypes from 'prop-types';
+const ItemToAdd = ({ item, addItem }) => {
+    const handleAddItemToList = (item) => {
+        addItem(item)
+    }
+
+    return <li onClick={() => handleAddItemToList(item)}>
+        <span>{item.name}</span>
     </li>
 }
 
 ItemToAdd.propTypes = {
-    item: PropTypes.object.isRequired
+    item: propTypes.object.isRequired,
+    addItem: propTypes.func.isRequired
 }
 
 export default ItemToAdd

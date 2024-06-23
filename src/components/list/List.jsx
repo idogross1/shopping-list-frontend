@@ -1,16 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
 
-export const List = ({ list, editList }) => {
+export const List = ({ list }) => {
+    const navigate = useNavigate();
+
     const handleEditList = () => {
-        editList(list._id)
+        navigate(`/${list._id}`)
     }
-    console.log("🚀 ~ List ~ list:", list);
     return <li onClick={handleEditList}>{list.name}</li>
 }
 
 List.propTypes = {
     list: propTypes.object.isRequired,
-    editList: propTypes.func.isRequired
 }
 
 export default List

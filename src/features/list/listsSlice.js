@@ -29,7 +29,25 @@ const listsSlice = createSlice({
         },
         getListById: (state) => {
             return state.filter(list => list)
-        }
+        },
+        updateListItems: (state, action) => {
+            console.log('hi')
+            const { listId, items } = action.payload; // items to add 
+            const list = state.data.find(list => list._id === listId);
+            if (list) {
+                items.forEach(newItem => {
+                    const existingItem = list.items.find(item => item._id === newItem._id);
+                    if (existingItem) {
+                        existingItem.quantity = newItem.quantity;
+                    } else {
+                        list.items.push(newItem);
+                    }
+                });
+            } else {
+                console.error(`List with id ${listId} not found`);
+            }
+        },
+
     },
     extraReducers: (builder) => {
         builder
@@ -37,7 +55,6 @@ const listsSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchLists.fulfilled, (state, action) => {
-                console.log("🚀 ~ .addCase ~ action:", action);
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
@@ -51,7 +68,7 @@ const listsSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(addNewList.fulfilled, (state, action) => {
-                console.log("🚀 ~ .addCase ~ action:", action);
+                // console.log("🚀 ~ .addCase ~ action:", action);
                 state.status = 'succeeded';
                 state.data.push(action.payload);
             })
@@ -61,5 +78,5 @@ const listsSlice = createSlice({
             });
     },
 });
-export const { addItem, removeItem, getLists } = listsSlice.actions;
+export const { addItem, removeItem, getLists, updateListItems } = listsSlice.actions;
 export default listsSlice.reducer;

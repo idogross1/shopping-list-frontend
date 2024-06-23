@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import ItemToAdd from '../itemToAdd/ItemToAdd'
 // import { useState } from "react";
 
-const ItemsMenu = ({ closeItemsMenuHandler, items }) => {
+const ItemsMenu = ({ closeItemsMenuHandler, addItemsToList, items }) => {
+    const addItem = (item) => {
+        addItemsToList(item)
+    }
+
     return <section>
         <div className="">
             <p>Add products</p>
@@ -12,14 +16,15 @@ const ItemsMenu = ({ closeItemsMenuHandler, items }) => {
             SEARCH BAR
         </div>
         <ul className="">
-            {items.map((item, index) => <ItemToAdd key={index} item={item}></ItemToAdd>)}
+            {items.map((item, index) => <ItemToAdd key={index} item={item} addItem={addItem}></ItemToAdd>)}
         </ul>
     </section>
 }
 
 ItemsMenu.propTypes = {
-    closeItemsMenuHandler: PropTypes.func.isRequired,
-    items: PropTypes.array.isRequired
+    closeItemsMenuHandler: propTypes.func.isRequired,
+    addItemsToList: propTypes.func.isRequired,
+    items: propTypes.array.isRequired
 };
 
 export default ItemsMenu;
