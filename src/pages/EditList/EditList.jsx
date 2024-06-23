@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ItemsMenu from '../../components/itemsMenu/ItemsMenu'
 import { debounce } from '../../services/utils.services';
-import { updateListItems } from '../../features/list/listsSlice'
+import { updateList } from '../../features/list/listsSlice'
 // import { fetchListById } from '../../features/list/listsSlice'; // Assume you have a thunk to fetch a single list by ID
 
 const EditList = () => {
@@ -28,16 +28,10 @@ const EditList = () => {
 
     const debouncedUpdateListItems = useCallback(
         debounce((newItems) => {
-            dispatch(updateListItems({ listId, items: newItems }));
+            dispatch(updateList({ listId, items: newItems }));
         }, 500), // Adjust the delay as needed
         [dispatch, listId]
     );
-
-    // useEffect(() => {
-    //     if (list) {
-    //         setItemsToAddToList(list.items || []);
-    //     }
-    // }, [list]);
 
     useEffect(() => {
         console.log(itemsToAddToList)

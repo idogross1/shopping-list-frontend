@@ -13,6 +13,11 @@ export const addNewList = createAsyncThunk('lists/addNewList', async (newList) =
     return response.data;
 });
 
+export const updateList = createAsyncThunk('lists/updateList', async (updatedList) => {
+    const response = await axios.put(`http://localhost:3000/list/${updatedList.userId}`, updatedList);
+    return response.data;
+});
+
 const listsSlice = createSlice({
     name: 'lists',
     initialState: {
@@ -31,8 +36,7 @@ const listsSlice = createSlice({
             return state.filter(list => list)
         },
         updateListItems: (state, action) => {
-            console.log('hi')
-            const { listId, items } = action.payload; // items to add 
+            const { listId, items } = action.payload;
             const list = state.data.find(list => list._id === listId);
             if (list) {
                 items.forEach(newItem => {
@@ -73,6 +77,33 @@ const listsSlice = createSlice({
                 state.data.push(action.payload);
             })
             .addCase(addNewList.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            });
+
+        builder
+            .addCase(updateList.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(updateList.fulfilled, (state, action) => {
+                // console.log("🚀 ~ .addCase ~ action:", action);
+                state.status = 'succeeded';
+                const { listId, items } = action.payload;
+                const list = state.data.find(list => list._id === listId);
+                if (list) {
+                    items.forEach(newItem => {
+                        const existingItem = list.items.find(item => item._id === newItem._id);
+                        if (existingItem) {
+                            existingItem.quantity = newItem.quantity;
+                        } else {
+                            list.items.push(newItem);
+                        }
+                    });
+                } else {
+                    console.error(`List with id ${listId} not found`);
+                }
+            })
+            .addCase(updateList.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             });
