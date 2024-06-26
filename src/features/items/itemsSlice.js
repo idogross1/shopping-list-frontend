@@ -37,7 +37,7 @@ const itemsSlice = createSlice({
     //             state.status = 'loading';
     //         })
     //         .addCase(fetchLists.fulfilled, (state, action) => {
-    //             console.log("🚀 ~ .addCase ~ action:", action);
+
     //             state.status = 'succeeded';
     //             state.data = action.payload;
     //         })
@@ -51,7 +51,7 @@ const itemsSlice = createSlice({
     //             state.status = 'loading';
     //         })
     //         .addCase(addNewList.fulfilled, (state, action) => {
-    //             console.log("🚀 ~ .addCase ~ action:", action);
+
     //             state.status = 'succeeded';
     //             state.data.push(action.payload);
     //         })

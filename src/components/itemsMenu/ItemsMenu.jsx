@@ -1,30 +1,34 @@
-import propTypes from 'prop-types';
-import ItemToAdd from '../itemToAdd/ItemToAdd'
-// import { useState } from "react";
+import PropTypes from 'prop-types';
+import ItemToAdd from '../itemToAdd/ItemToAdd';
+import { useCallback } from 'react';
 
-const ItemsMenu = ({ closeItemsMenuHandler, addItemsToList, items }) => {
-    const addItem = (item) => {
-        addItemsToList(item)
-    }
+const ItemsMenu = ({ closeItemsMenuHandler, updateItemQuantityInList, items }) => {
+    const updateItemQuantity = useCallback((item, quantity) => {
+        updateItemQuantityInList(item, quantity);
+    }, [updateItemQuantityInList]);
 
-    return <section>
-        <div className="">
-            <p>Add products</p>
-            <button onClick={closeItemsMenuHandler}>X</button>
-        </div>
-        <div>
-            SEARCH BAR
-        </div>
-        <ul className="">
-            {items.map((item, index) => <ItemToAdd key={index} item={item} addItem={addItem}></ItemToAdd>)}
-        </ul>
-    </section>
-}
+    return (
+        <section>
+            <div className="">
+                <p>Add products</p>
+                <button onClick={closeItemsMenuHandler}>X</button>
+            </div>
+            <div>
+                SEARCH BAR
+            </div>
+            <ul className="">
+                {items.map((item, index) => (
+                    <ItemToAdd key={index} item={item} updateItemQuantity={updateItemQuantity} />
+                ))}
+            </ul>
+        </section>
+    );
+};
 
 ItemsMenu.propTypes = {
-    closeItemsMenuHandler: propTypes.func.isRequired,
-    addItemsToList: propTypes.func.isRequired,
-    items: propTypes.array.isRequired
+    closeItemsMenuHandler: PropTypes.func.isRequired,
+    updateItemQuantityInList: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired
 };
 
 export default ItemsMenu;
